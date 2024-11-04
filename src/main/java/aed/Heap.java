@@ -3,7 +3,7 @@ package aed;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Heap {
+public class Heap<Traslado>{
   private ArrayList<Traslado> elems;
   private Comparator<Traslado> comp;
 
@@ -41,10 +41,28 @@ public class Heap {
   }
 
   private void siftdown(int i) {
+    if (i <= ((elems.size()/2) - 1) ) {
+      Traslado actual = elems.get(i); 
+      Traslado hijoConMayorOrdenPrioridad = elems.get(hijo_izq(i));
+      int index = hijo_izq(i);
+      //Busco hijo mas grande
+      if (hijo_der(i) < elems.size() && comp.compare(elems.get(hijo_der(i)), hijoConMayorOrdenPrioridad) > 0){
+          hijoConMayorOrdenPrioridad = elems.get(hijo_der(i));
+          index = hijo_der(i);
+      }
+      // Me fijo si el padre es mas grande/chico, si es asi los cambia de lugar
+      if (comp.compare(hijoConMayorOrdenPrioridad, actual) > 0) {
+        Traslado holder = actual;
+        elems.set(i, hijoConMayorOrdenPrioridad);
+        elems.set(index, holder);
+        siftdown(index);
+      }
+    }
   }
 
   public void eliminar(int i){
       elems.set(i,elems.get(elems.size()-1));
+      elems.remove(elems.size() - 1);
       siftdown(i);
   }
 
