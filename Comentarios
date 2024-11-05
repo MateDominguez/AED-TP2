@@ -1,1 +1,48 @@
+Comentarios de la Estructura y Complejidades TP 2
+
+Definimos la clase Heap <Traslado>
+Con atributo privado :
+●	elems que es un ArrayList<Traslado>
+●	comp que es un Comparator<Traslado>
+●	padre
+●	hijoIzq
+●	hijoDer
+Que recibe una secuencia de Traslado y el criterio y los ordena según el mismo. Para eso contamos con los procs; siftup, siftdown, eliminar, agregar, verMayorPrioridad, obetneerMayorPrioridad.
+
+Definimos la clase LibretaCiudades
+	Con atributo privado
+●	ciudades que es una seq de ciudades cuyo tamaño es cantCiudades que recibimos y cada elemento es null.
+●	ciudadMayorSuperavit que es una ciudad
+●	ciudadesMayorPerdida que es un ArrayList<Ciudad>
+●	ciudadesMayorGanancia que es un ArrayList<Ciudad>
+
+
+A cada ciudad le vamos a asignar su ganancia y pérdida.
+Inicializamos la libreta creando ciudades del tamaño de cantCiudades que nos dan; cuyos elementos son todos null. ciudadesMayorGanancia, ciudadesMayorPerdida, ciudadesMayorSuperavit tambien son null.
+
+Contamos con comparadores:
+●	gananciaComparator que compara ganancias de las ciudades.
+●	perdidaComparator que compara las perdidas de las ciudades.
+●	superavitComparator que compara el superavit de las ciudades (diferencia entre ganancia y perdida).
+
+Desarrollamos los procs
+	sumarGanancia donde ingreso la ciudad y el valor. Si  la ciudad no estaba en ciudades la agrego y le asigno la ganancia(el valor que recibo) y su perdida que arranca en 0. Si ya estaba en la secuencia solo actualizo el valor. Si esta ciudad tiene mayor ganancia que la que estaba antes la reemplaza y si tienen la misma la agrega a CiudadesMayorGanancia. Tambien llama a la funcion actualizarMayorGanancia.
+	sumarPerdida donde ingresa la ciudad y el valor. Si la ciudad no estaba en ciudades la agrego y le asigno la perdida (el valor que recibi) y su ganancia (arranca en 0).Si ya estaba actualizo el valor. Si esta ciudad tiene mayor perdida que la que estaba antes la reemplaza y si tienen la misma la agrega a CiudadesMayorGanancia. Tambien llama a la funcion actualizarMayorPerdida.
+	actualizarMayorSuperavit recibe una ciudad y compara con la ciudad que ya estaba (arranca en null y la primer ciudad que ingreso sera la de mayor superavit de momento), si mi input es mayor al elemento a comparar reemplazo sino lo dejo como esta.
+	obtener
+	longitud
+
+Definimos la clase LibretaTraslados
+	tributos privados
+●	traslados es un Heap<Traslado>
+●	gananciaPromedioGlobal es un int
+●	mapeo es un ABB<Integer>
+
+Comparadores:
+●	timeStampComparator compara fechas (mas antigua es mas pequeña)
+●	reditoComparator compara gananciaNeta.
+
+
+Para la clase de BestEffort voy a tener LibretaTraslados y LibretaCiudades
+La clase de Traslado no la tocamos.
 
