@@ -36,7 +36,6 @@ Definimos la clase LibretaTraslados
 	tributos privados
 ●	traslados es un Heap<Traslado>
 ●	gananciaPromedioGlobal es un int
-●	mapeo es un ABB<Integer>
 
 Comparadores:
 ●	timeStampComparator compara fechas (mas antigua es mas pequeña)
