@@ -5,111 +5,94 @@ import java.util.Comparator;
 
 public class LibretaCiudades {
     private Ciudad[] ciudades;
-    private Ciudad ciudadMayorSuperavit;
-    private ArrayList<Ciudad> ciudadesMayorPerdida;
-    private ArrayList<Ciudad> ciudadesMayorGanancia;
-
-    private class Ciudad {
-        int ganancia;
-        int perdida;
-
-        public Ciudad(){
-            ganancia = 0;
-            perdida = 0;
+    private Heap<Ciudad> heapSuperavit;
+    private ArrayList<Integer> ciudadesMayorPerdida;
+    private ArrayList<Integer> ciudadesMayorGanancia;
+    
+    public LibretaCiudades(int cantCiudades){
+        SuperavitComparator comp = new SuperavitComparator();
+        ciudadesMayorGanancia = new ArrayList<>();
+        ciudadesMayorPerdida = new ArrayList<>();
+        ciudades = new Ciudad[cantCiudades];
+        for (int i = 0; i < cantCiudades; i++) {
+            Ciudad ciudad = new Ciudad(i);
+            ciudad.ganancia = 0;
+            ciudad.perdida = 0;
+            ciudades[i] = ciudad;
         }
+        Heap<Ciudad> heapSuperavit = new Heap(ciudades, comp);
+    }
 
-        public Ciudad(int gan,int per){
-            this.ganancia = gan;
-            this.perdida = per;
-            }
-        }
-
-        public LibretaCiudades(int cantCiudades){
-            ciudades = new Ciudad[cantCiudades];
-            ciudadesMayorGanancia = new ArrayList<>();
-            ciudadesMayorPerdida = new ArrayList<>();
-            ciudadMayorSuperavit = null;
-        }
-
-        private class gananciaComparator implements Comparator<Ciudad>{
-            @Override
-            public int compare(Ciudad c1, Ciudad c2){
-                return Integer.compare(c1.ganancia,c2.ganancia);
-            }
-        }
-
-        private class perdidaComparator implements Comparator<Ciudad>{
-            @Override
-            public int compare(Ciudad c1, Ciudad c2){
-                return Integer.compare(c1.perdida,c2.perdida);
-            }
-        }
-
-        private class superavitComparator implements Comparator<Ciudad>{
-            @Override
-            public int compare(Ciudad c1, Ciudad c2){
-                if (c1.ganancia - c1.perdida == c2.ganancia - c2.perdida) {
-                    return Integer.compare(c1.id,c2.id);
-                }
-                return Integer.compare(c1.ganancia - c1.perdida,c2.ganancia - c2.perdida);
-            }
-        }
-
-        private void sumarGanancia(int ciudad, int valor){
-            int mayorGanancia = 0;
-            if (ciudadesMayorGanancia.size() > 0) {
-                mayorGanancia = ciudadesMayorGanancia.get(0).ganancia;
-            }
-            if (ciudades[ciudad] == null) {
-                Ciudad nuevaCiudad = new Ciudad();
-                nuevaCiudad.ganancia = valor;
-                nuevaCiudad.perdida = 0;
-                ciudades[ciudad] = nuevaCiudad;
-            } else {
-                ciudades[ciudad].ganancia = ciudades[ciudad].ganancia + valor;
-            }
-            if (ciudadesMayorGanancia.size() > 0 && ciudades[ciudad].ganancia > mayorGanancia){
-                ciudadesMayorGanancia.clear();
-                ciudadesMayorGanancia.add(ciudades[ciudad]);
-            } actualizarMayorSuperavit(ciudad);
-        }
-
-        private void sumarPerdida(int ciudad, int valor){
-            int mayorPerdida = 0;
-            if (ciudadesMayorPerdida.size() > 0) {
-                mayorPerdida = ciudadesMayorPerdida.get(0).perdida;
-            }
-            if (ciudades[ciudad] == null) {
-                Ciudad nuevaCiudad = new Ciudad();
-                nuevaCiudad.ganancia = 0;
-                nuevaCiudad.perdida = valor;
-                ciudades[ciudad] = nuevaCiudad;
-            } else {
-                ciudades[ciudad].perdida = ciudades[ciudad].perdida + valor;
-            }
-            if (ciudadesMayorPerdida.size() > 0 && ciudades[ciudad].perdida > mayorPerdida){
-                ciudadesMayorPerdida.clear();
-                ciudadesMayorPerdida.add(ciudades[ciudad]);
-            } actualizarMayorSuperavit(ciudad);
-        }
-
-        private void actualizarMayorSuperavit(int ciudad) {
-            if (ciudadMayorSuperavit == null) {
-                ciudadMayorSuperavit = ciudades[ciudad];
-            } else {
-                superavitComparator comp = new superavitComparator();
-                if (comp.compare(ciudadMayorSuperavit, ciudades[ciudad]) < 0) {
-                    ciudadMayorSuperavit = ciudades[ciudad];
-                }
-            }
-        }
-
-        private Ciudad obtener(int ciudad){
-            return ciudades[ciudad];
-        }
-
-        private int longitud(){
-            return ciudades.length;
+    private class gananciaComparator implements Comparator<Ciudad>{
+        @Override
+        public int compare(Ciudad c1, Ciudad c2){
+            return Integer.compare(c1.ganancia,c2.ganancia);
         }
     }
+
+    private class perdidaComparator implements Comparator<Ciudad>{
+        @Override
+        public int compare(Ciudad c1, Ciudad c2){
+            return Integer.compare(c1.perdida,c2.perdida);
+        }
+    }
+
+    private void sumarGanancia(int ciudad, int valor){
+        ciudades[ciudad].ganancia = ciudades[ciudad].ganancia + valor;
+        if (ciudadesMayorPerdida.size() == 0) {
+            ciudadesMayorPerdida.add(ciudad);
+            actualizarSuperavit(ciudad);
+            return;
+        }
+        int mayorGananciaActual = ciudades[ciudadesMayorGanancia.get(0)].ganancia;
+        if (ciudadesMayorGanancia.size() > 0 && ciudades[ciudad].ganancia > mayorGananciaActual){
+            ciudadesMayorGanancia.clear();
+            ciudadesMayorGanancia.add(ciudad);
+        } else {
+            ciudadesMayorPerdida.add(ciudad);
+        }
+        actualizarSuperavit(ciudad);
+    }
+
+    private void sumarPerdida(int ciudad, int valor){
+        ciudades[ciudad].perdida = ciudades[ciudad].perdida + valor;
+        if (ciudadesMayorPerdida.size() == 0) {
+            ciudadesMayorPerdida.add(ciudad);
+            actualizarSuperavit(ciudad);
+            return;
+        } 
+        int mayorPerdidaActual = ciudades[ciudadesMayorPerdida.get(0)].perdida;
+        if (ciudadesMayorPerdida.size() > 0 && ciudades[ciudad].perdida > mayorPerdidaActual){
+            ciudadesMayorPerdida.clear();
+            ciudadesMayorPerdida.add(ciudad);
+        } else {
+            ciudadesMayorPerdida.add(ciudad);
+        }
+        actualizarSuperavit(ciudad);
+    }
+
+    public int ciudadMayorSuperavit(){
+        return heapSuperavit.verMayorPrioridad().id;
+    }
+
+    public ArrayList<Integer> listaCiudadesMayorPerdida() {
+        return ciudadesMayorPerdida;
+    }
+
+    public ArrayList<Integer> listaCiudadesMayorGanancia() {
+        return ciudadesMayorGanancia;
+    }
+
+    private void actualizarSuperavit(int ciudad){
+        heapSuperavit.actualizar(ciudades[ciudad].handleSuperavit);
+    }
+
+    private Ciudad obtener(int ciudad){
+        return ciudades[ciudad];
+    }
+
+    private int longitud(){
+        return ciudades.length;
+    }
+}
 

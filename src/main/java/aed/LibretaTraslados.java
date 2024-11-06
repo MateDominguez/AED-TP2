@@ -4,34 +4,41 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class LibretaTraslados {
-        private Heap<Traslado> traslados;
-        private int gananciaPromedioGlobal;
+        private Heap<Traslado> trasladosRedito;
+        private Heap<Traslado> trasladosTimeStamp;
+        private float gananciaPromedioGlobal;
 
-        public LibretaTraslados(Traslado[] t, Comparator<Traslado> comp){
-            traslados = new Heap<Traslado>(t, );
-        
+        public LibretaTraslados(Traslado[] traslados){
+            ReditoComparator compRedito = new ReditoComparator();
+            TimeStampComparator compTimeStamp = new TimeStampComparator();
+            trasladosRedito = new Heap<Traslado>(traslados,compRedito);
+            trasladosTimeStamp = new Heap<Traslado>(traslados,compTimeStamp);
+            gananciaPromedioGlobal = 0;
         }
 
-        private class timeStampComparator implements Comparator<Traslado>{
-            @Override
-            public int compare(Traslado t1, Traslado t2){
-                return Integer.compare(t1.timestamp,t2.timestamp);
-            }
-        }
-    
-        private class reditoComparator implements Comparator<Traslado>{
-            @Override
-            public int compare(Traslado t1, Traslado t2){
-                if (t1.gananciaNeta == t2.gananciaNeta){
-                    return Integer.compare(t1.id,t2.id);
-                } else {
-                    return Integer.compare(t1.gananciaNeta, t2.gananciaNeta);
-                }
-            }
+        public void agregarTraslado(Traslado traslado){
+            trasladosRedito.agregar(traslado);
+            trasladosTimeStamp.agregar(traslado);
         }
 
-        private void eliminarPrimero(){         
+        public void despacharAntiguos(){
+            Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad();
+            trasladosRedito.eliminar(despachado.handleRedito());
+            actualizarGananciaPromedio(despachado.gananciaNeta());
+        }
 
+        public void despacharRedituables(){
+            Traslado despachado = trasladosRedito.obtenerMayorPrioridad();
+            trasladosTimeStamp.eliminar(despachado.handleTimeStamp());
+            actualizarGananciaPromedio(despachado.gananciaNeta());
+        }        
+
+        private void actualizarGananciaPromedio(float ganancia){
+            gananciaPromedioGlobal = (gananciaPromedioGlobal + ganancia) / 2;
+        }
+
+        public int gananciaPromedio(){
+            return (int) gananciaPromedioGlobal;
         }
 
 }

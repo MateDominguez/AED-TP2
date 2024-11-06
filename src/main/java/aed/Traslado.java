@@ -2,13 +2,13 @@ package aed;
 
 public class Traslado {
     
-    int id;
-    int origen;
-    int destino;
-    int gananciaNeta;
-    int timestamp;
-    int handleTimeStamp;
-    int handleRedito;
+    private int id;
+    private int origen;
+    private int destino;
+    private int gananciaNeta;
+    private int timestamp;
+    private int handleTimeStamp;
+    private int handleRedito;
 
     public Traslado(int id, int origen, int destino, int gananciaNeta, int timestamp){
         this.id = id;
@@ -18,11 +18,31 @@ public class Traslado {
         this.timestamp = timestamp;
     }
 
-    private void modificarHandleTimeStamp(int valor){
+    public void modificarHandleTimeStamp(int valor){
         handleTimeStamp = valor;
     }
 
-    private void modificarHandleRedito(int valor){
+    public void modificarHandleRedito(int valor){
         handleRedito = valor;
+    }
+
+    public int handleRedito(){
+        return handleRedito;
+    }
+
+    public int handleTimeStamp(){
+        return handleTimeStamp;
+    }
+
+    public int gananciaNeta(){
+        return gananciaNeta;
+    }
+
+    public int id(){
+        return id;
+    }
+
+    public int timestamp(){
+        return timestamp;
     }
 }

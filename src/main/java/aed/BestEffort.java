@@ -1,16 +1,13 @@
 package aed;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class BestEffort {
-    private LibretaTraslados lTrasladosPorTimeStamp;
-    private LibretaTraslados lTrasladosPorRedito;
-    private LibretaCiudades lCiudades; 
+    private LibretaTraslados lTraslados;
+    private LibretaCiudades lCiudades;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        LibretaTraslados lTrasladosPorTimeStamp = new LibretaTraslados(traslados);
-        LibretaTraslados lTrasladosPorRedito = new LibretaTraslados(traslados)
+        LibretaTraslados lTraslados = new LibretaTraslados(traslados);
         LibretaCiudades lCiudades = new LibretaCiudades(cantCiudades);
     }
 
