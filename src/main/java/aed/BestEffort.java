@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class BestEffort {
+    private LibretaTraslados lTrasladosPorTimeStamp;
+    private LibretaTraslados lTrasladosPorRedito;
+    private LibretaCiudades lCiudades; 
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        LibretaTraslados envios = new LibretaTraslados();
-        LibretaCiudades ciudades = new LibretaCiudades();
-
-        for (int i = 0; i < traslados.length; i++){
-            //envios.add(traslados[i]);
-            if (ciudades.pertenece(buscar)){
-                ciudades.set(traslados[i].origen, ciudades.get(buscarPorId(origen, ciudades)));
-            }
-        }
+        LibretaTraslados lTrasladosPorTimeStamp = new LibretaTraslados(traslados);
+        LibretaTraslados lTrasladosPorRedito = new LibretaTraslados(traslados)
+        LibretaCiudades lCiudades = new LibretaCiudades(cantCiudades);
     }
 
     public void registrarTraslados(Traslado[] traslados){

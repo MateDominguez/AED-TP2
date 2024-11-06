@@ -6,7 +6,6 @@ import java.util.Comparator;
 public class LibretaTraslados {
         private Heap<Traslado> traslados;
         private int gananciaPromedioGlobal;
-        private ABB<Integer> mapeo;
 
         public LibretaTraslados(Traslado[] t, Comparator<Traslado> comp){
             traslados = new Heap<Traslado>(t, );

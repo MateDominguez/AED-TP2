@@ -26,9 +26,9 @@ public class LibretaCiudades {
 
         public LibretaCiudades(int cantCiudades){
             ciudades = new Ciudad[cantCiudades];
-            ciudadesMayorGanancia = null;
-            ciudadesMayorPerdida = null;
-            ciudadesMayorSuperavit = null;
+            ciudadesMayorGanancia = new ArrayList<>();
+            ciudadesMayorPerdida = new ArrayList<>();
+            ciudadMayorSuperavit = null;
         }
 
         private class gananciaComparator implements Comparator<Ciudad>{
