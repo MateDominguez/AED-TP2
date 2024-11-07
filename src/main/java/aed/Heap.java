@@ -20,7 +20,7 @@ public class Heap<T>{
       actualizarHandle(elementos[i], i);
       heap.add(elementos[i]);
     }
-    for (int i = ((heap.size() / 2) - 1); i <= 0; i--) {
+    for (int i = ((heap.size() / 2) - 1); i >= 0; i--) {
       T actual = heap.get(i);
       T hijoConMayorOrdenPrioridad = (T) heap.get(hijo_izq(i));
       int index = hijo_izq(i);
@@ -34,6 +34,8 @@ public class Heap<T>{
         T holder = actual;
         heap.set(i, hijoConMayorOrdenPrioridad);
         heap.set(index, holder);
+        actualizarHandle(hijoConMayorOrdenPrioridad, i);
+        actualizarHandle(holder, index);
       }
     }
     return heap;
@@ -48,7 +50,7 @@ public class Heap<T>{
   }  
 
   private int padre(int i) {        
-      return ( i - 1 / 2);             
+      return ((i - 1) / 2);             
   }        
 
   private void siftup(int i) { // O(log n)
@@ -64,12 +66,15 @@ public class Heap<T>{
         actualizarHandle(actual, padre(i));
         actualizarHandle(holder, i);
         siftup(padre(i));
+      } else {
+        actualizarHandle(actual, i);
+        actualizarHandle(padre, padre(i));
       }
     }
   }
 
   private void siftdown(int i) { // O(log n)
-    if (i <= ((elems.size()/2) - 1)) {
+    if (i <= ((cantElems / 2) - 1)) {
       T actual = elems.get(i); 
       T hijoConMayorOrdenPrioridad = elems.get(hijo_izq(i));
       int index = hijo_izq(i);
@@ -86,6 +91,9 @@ public class Heap<T>{
         actualizarHandle(hijoConMayorOrdenPrioridad, i);
         actualizarHandle(holder, index);
         siftdown(index);
+      } else {
+        actualizarHandle(actual, i);
+        actualizarHandle(hijoConMayorOrdenPrioridad, index);
       }
     }
   }
@@ -103,7 +111,6 @@ public class Heap<T>{
       Ciudad elem = (Ciudad) elemento;
       elem.modificarHandleSuperavit(indice);
     }
-      
   }
 
   public void actualizar(int i){ // O(log n)
@@ -112,7 +119,7 @@ public class Heap<T>{
   }
 
   public void eliminar(int i){
-      elems.set(i,elems.get(cantElems));
+      elems.set(i,elems.get(cantElems - 1));
       siftdown(i);
       cantElems--;
   }
@@ -131,5 +138,9 @@ public class Heap<T>{
       T res = elems.get(0);
       eliminar(0);
       return res;
+  }
+
+  public int cantElems() {
+    return cantElems;
   }
 }

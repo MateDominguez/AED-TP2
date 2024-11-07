@@ -1,7 +1,6 @@
 package aed;
 
 public class Traslado {
-    
     private int id;
     private int origen;
     private int destino;
@@ -23,7 +22,7 @@ public class Traslado {
     }
 
     public void modificarHandleRedito(int valor){
-        handleRedito = valor;
+        this.handleRedito = valor;
     }
 
     public int handleRedito(){
