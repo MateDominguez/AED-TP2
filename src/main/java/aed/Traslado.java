@@ -1,7 +1,6 @@
 package aed;
 
 public class Traslado {
-    
     private int id;
     private int origen;
     private int destino;

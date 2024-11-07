@@ -7,8 +7,8 @@ public class BestEffort {
     private LibretaCiudades lCiudades;
 
     public BestEffort(int cantCiudades, Traslado[] traslados){
-        LibretaTraslados lTraslados = new LibretaTraslados(traslados);
-        LibretaCiudades lCiudades = new LibretaCiudades(cantCiudades);
+        this.lTraslados = new LibretaTraslados(traslados);
+        this.lCiudades = new LibretaCiudades(cantCiudades);
     }
 
     public void registrarTraslados(Traslado[] traslados){

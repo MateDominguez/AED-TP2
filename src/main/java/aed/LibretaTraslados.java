@@ -21,17 +21,23 @@ public class LibretaTraslados {
             trasladosTimeStamp.agregar(traslado);
         }
 
-        public void despacharAntiguos(){
+        public void despacharAntiguo(){
             Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad();
             trasladosRedito.eliminar(despachado.handleRedito());
             actualizarGananciaPromedio(despachado.gananciaNeta());
         }
 
-        public void despacharRedituables(){
+        public void despacharRedituable(){
             Traslado despachado = trasladosRedito.obtenerMayorPrioridad();
             trasladosTimeStamp.eliminar(despachado.handleTimeStamp());
             actualizarGananciaPromedio(despachado.gananciaNeta());
-        }        
+        }
+        
+        public int idPrimerRedituable() {
+            return trasladosRedito.verMayorPrioridad()
+        }
+
+        //falta idPrimerAntiguo
 
         private void actualizarGananciaPromedio(float ganancia){
             gananciaPromedioGlobal = (gananciaPromedioGlobal + ganancia) / 2;
@@ -39,6 +45,10 @@ public class LibretaTraslados {
 
         public int gananciaPromedio(){
             return (int) gananciaPromedioGlobal;
+        }
+
+        public int cantTraslados() {
+            return trasladosRedito.cantElems();
         }
 
 }
