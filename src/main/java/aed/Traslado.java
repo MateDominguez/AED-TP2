@@ -23,7 +23,7 @@ public class Traslado {
     }
 
     public void modificarHandleRedito(int valor){
-        handleRedito = valor;
+        this.handleRedito = valor;
     }
 
     public int handleRedito(){
