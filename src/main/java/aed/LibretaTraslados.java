@@ -1,8 +1,5 @@
 package aed;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
 public class LibretaTraslados {
         private Heap<Traslado> trasladosRedito;
         private Heap<Traslado> trasladosTimeStamp;
