@@ -1,47 +1,75 @@
 Comentarios de la Estructura y Complejidades TP 2
 
+Definimos la clase BestEffort;
+	Con los atributos privados
+	lTraslados que es LibretaTraslados
+	lCiudades que es LibretaCiudades
+
+Definimos la clase Ciudad
+	int id
+	int ganacia
+	int perdida
+	int handleSuperavit
+La ciudad tiene asignado un id, su ganacia, perdida y un handleSuperavit.
+
 Definimos la clase Heap <Traslado>
 Con atributo privado :
-●	elems que es un ArrayList<Traslado>
-●	comp que es un Comparator<Traslado>
-●	padre
-●	hijoIzq
-●	hijoDer
-Que recibe una secuencia de Traslado y el criterio y los ordena según el mismo. Para eso contamos con los procs; siftup, siftdown, eliminar, agregar, verMayorPrioridad, obetneerMayorPrioridad.
+●	elems de tipo ArrayList<T>
+●	comp de tipo Comparator<T>
+●	cantElems de tipo int
+● 	hijo_izq de tipo int
+●	hijo_der de tipo int
+●	padre de tipo int
+
+Que recibe una secuencia tipo T y el comparador y los ordena según el criterio. Para eso contamos con los procs; heapify, siftup, siftdown, actualizar, eliminar, actualizarHandle, agregar, verMayorPrioridad, obtenerMayorPrioridad.
 
 Definimos la clase LibretaCiudades
 	Con atributo privado
-●	ciudades que es una seq de ciudades cuyo tamaño es cantCiudades que recibimos y cada elemento es null.
-●	ciudadMayorSuperavit que es una ciudad
-●	ciudadesMayorPerdida que es un ArrayList<Ciudad>
-●	ciudadesMayorGanancia que es un ArrayList<Ciudad>
+●	ciudades que es una seq de ciudad
+●	heapSuperavit que es un Heap<Ciudad>
+●	ciudadesMayorPerdida que es un ArrayList<Integer>
+●	ciudadesMayorGanancia que es un ArrayList<Integer>
 
-
-A cada ciudad le vamos a asignar su ganancia y pérdida.
 Inicializamos la libreta creando ciudades del tamaño de cantCiudades que nos dan; cuyos elementos son todos null. ciudadesMayorGanancia, ciudadesMayorPerdida, ciudadesMayorSuperavit tambien son null.
-
-Contamos con comparadores:
-●	gananciaComparator que compara ganancias de las ciudades.
-●	perdidaComparator que compara las perdidas de las ciudades.
-●	superavitComparator que compara el superavit de las ciudades (diferencia entre ganancia y perdida).
-
 Desarrollamos los procs
-	sumarGanancia donde ingreso la ciudad y el valor. Si  la ciudad no estaba en ciudades la agrego y le asigno la ganancia(el valor que recibo) y su perdida que arranca en 0. Si ya estaba en la secuencia solo actualizo el valor. Si esta ciudad tiene mayor ganancia que la que estaba antes la reemplaza y si tienen la misma la agrega a CiudadesMayorGanancia. Tambien llama a la funcion actualizarMayorGanancia.
-	sumarPerdida donde ingresa la ciudad y el valor. Si la ciudad no estaba en ciudades la agrego y le asigno la perdida (el valor que recibi) y su ganancia (arranca en 0).Si ya estaba actualizo el valor. Si esta ciudad tiene mayor perdida que la que estaba antes la reemplaza y si tienen la misma la agrega a CiudadesMayorGanancia. Tambien llama a la funcion actualizarMayorPerdida.
-	actualizarMayorSuperavit recibe una ciudad y compara con la ciudad que ya estaba (arranca en null y la primer ciudad que ingreso sera la de mayor superavit de momento), si mi input es mayor al elemento a comparar reemplazo sino lo dejo como esta.
-	obtener
-	longitud
+	sumarGanancia donde ingreso la ciudad y el valor. 
+Actualizo el valor de ganacia para esa ciudad. 
+Si ciudadesMayorPerdida esta vacio agrego ciudad a ciudadesMayorPerdida.
+Si el modulo de ciudadesMayorGanancia es mayor a 0 y la ganancia de la ciudad es mayor a MayorGananciaActual; saca la que estaba y lo reemplaz por la ciudad.
+Si el modulo de ciudadesMayorGanancia es mayor a 0 y la ganancia de la ciudad es menor agrego a ciudad a ciudadesMayorPerdida.
+Actualizo el superavit.
+	sumarPerdida donde ingresa la ciudad y el valor. 
+Actualizo el valor de perdida para etsa ciudad. 
+Si ciudadesMayorPerdida esta vacia. Agrego a ciudad a la secuencia.
+Si ciudadesMayorPerdida ya tiene algun elemento compara la perdida de la ciudad con mayorPerdidaActual y si es mayor vacia la secuencia y agrega ala ciudad sino agrega a ciudad a la secuencia.
+Actualizo el superavit.
+
+-CiudadMayorSuperavit devuelve el elemento del heapSuperavit de mayor prioridad.
+-listaCiudadesMayorPerdida devuelve ciudadesMayorPerdida
+-listaCiudadesMayorGanancia devuelve ciudadesMayorGanancia
+-actualizarSuperavit recibe una ciudad y actualiza el handleSuperavir de la ciudad en el heap.
+-obtener recibe una ciudad y la devuelve
+-longitud devuelve la longitud de la secuencia ciudades
+
+Comparadores:
+	gananciaComparator; compara ganancias entre ciudades
+	perdidaComparator; compara perdidas entre ciudades.
 
 Definimos la clase LibretaTraslados
 	tributos privados
-●	traslados es un Heap<Traslado>
-●	gananciaPromedioGlobal es un int
+●	trasladosRedito es un Heap<Traslado>
+●	trasladosTimeStamp es un Heap<Traslado> 
+●	gananciaPromedioGlobal es un float empieza en 0.
 
-Comparadores:
-●	timeStampComparator compara fechas (mas antigua es mas pequeña)
-●	reditoComparator compara gananciaNeta.
+-agregarTraslado recibe un traslado y lo agrega a trasladosRedito y trasladosTimeStamp
+-despacharAntiguos elimina el traslado de mayor priorirdad en trasladosRedito y en trasladosTimeStamp. Luego actualiza la ganancia promedio.
+-despacharRedituables elimina el traslado de mayor priorirdad en trasladosRedito y en trasladosTimeStamp. Luego actualiza la ganancia promedio.
+-actualizarGananciaPromedio recibe un float para tener en cuenta ese valor.
+-gananciaPromedio devuelve la gananciaPromedioGlobal
 
+Comparadores definidos en clases individuales:
+	ReditoComparator; compara la ganacia neta de dos traslados.
+	SuperavitComparator; compara la diferencia entre la ganancia y la perdida de dos ciudades.
+	TimeStampComparator; compara las fechas de dos traslados.
 
-Para la clase de BestEffort voy a tener LibretaTraslados y LibretaCiudades
-La clase de Traslado no la tocamos.
 
