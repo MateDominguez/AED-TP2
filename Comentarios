@@ -48,7 +48,7 @@ Actualizo el superavit.
 -listaCiudadesMayorPerdida devuelve ciudadesMayorPerdida
 -listaCiudadesMayorGanancia devuelve ciudadesMayorGanancia
 -actualizarSuperavit recibe una ciudad y actualiza el handleSuperavir de la ciudad en el heap.
--obtener recibe una ciudad y la devuelve
+-obtener recibe una ciudad y da su valor en la secuencia
 -longitud devuelve la longitud de la secuencia ciudades
 
 Comparadores:
