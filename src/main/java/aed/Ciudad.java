@@ -1,35 +1,44 @@
 package aed;
 
 public class Ciudad {
-  private int id;
-  private int ganancia;
-  private int perdida;
-  private int handleSuperavit;
 
-  public Ciudad(int id){
-      this.id = id;
-      this.ganancia = 0;
-      this.perdida = 0;
-  }
+    private int id;
+    private int ganancia;
+    private int perdida;
+    private int handleSuperavit;
 
-  public void modificarHandleSuperavit(int valor){
-    this.handleSuperavit = valor;
-  }
+    public Ciudad(int id) {
+        this.id = id;
+        this.ganancia = 0;
+        this.perdida = 0;
+    }
 
-  public int id(){
-    return id;
-  }
+    public void modificarHandleSuperavit(int valor) {
+        this.handleSuperavit = valor;
+    }
 
-  public int ganancia(){
-    return ganancia;
-  }
+    public void modificarGanancia(int valor) {
+        this.ganancia = valor;
+    }
 
-  public int perdida(){
-    return perdida;
-  }
+    public void modificarPerdida(int valor) {
+        this.perdida = valor;
+    }
 
-  public int handleSuperavit(){
-    return handleSuperavit;
-  }
+    public int id() {
+        return id;
+    }
+
+    public int ganancia() {
+        return ganancia;
+    }
+
+    public int perdida() {
+        return perdida;
+    }
+
+    public int handleSuperavit() {
+        return handleSuperavit;
+    }
 
 }

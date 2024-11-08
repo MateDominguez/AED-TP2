@@ -1,51 +1,61 @@
 package aed;
 
 public class LibretaTraslados {
-        private Heap<Traslado> trasladosRedito;
-        private Heap<Traslado> trasladosTimeStamp;
-        private float gananciaPromedioGlobal;
 
-        public LibretaTraslados(Traslado[] traslados){
-            ReditoComparator compRedito = new ReditoComparator();
-            TimeStampComparator compTimeStamp = new TimeStampComparator();
-            trasladosRedito = new Heap<Traslado>(traslados,compRedito);
-            trasladosTimeStamp = new Heap<Traslado>(traslados,compTimeStamp);
-            gananciaPromedioGlobal = 0;
-        }
+    private Heap<Traslado> trasladosRedito;
+    private Heap<Traslado> trasladosTimeStamp;
+    private int cantTraslados;
+    private int gananciaTotal;
+    private int trasladosDespachados;
 
-        public void agregarTraslado(Traslado traslado){
-            trasladosRedito.agregar(traslado);
-            trasladosTimeStamp.agregar(traslado);
-        }
+    public LibretaTraslados(Traslado[] traslados) {
+        ReditoComparator compRedito = new ReditoComparator();
+        TimeStampComparator compTimeStamp = new TimeStampComparator();
+        this.trasladosRedito = new Heap<Traslado>(traslados, compRedito);
+        this.trasladosTimeStamp = new Heap<>(traslados, compTimeStamp);
+        this.cantTraslados = traslados.length;
+        this.gananciaTotal = 0;
+        this.trasladosDespachados = 0;
+    }
 
-        public void despacharAntiguo(){
-            Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad();
-            trasladosRedito.eliminar(despachado.handleRedito());
-            actualizarGananciaPromedio(despachado.gananciaNeta());
-        }
+    public void agregarTraslado(Traslado traslado) {
+        trasladosRedito.agregar(traslado);
+        trasladosTimeStamp.agregar(traslado);
+        cantTraslados++;
+    }
 
-        public void despacharRedituable(){
-            Traslado despachado = trasladosRedito.obtenerMayorPrioridad();
-            trasladosTimeStamp.eliminar(despachado.handleTimeStamp());
-            actualizarGananciaPromedio(despachado.gananciaNeta());
-        }
-        
-        public int idPrimerRedituable() {
-            return trasladosRedito.verMayorPrioridad()
-        }
+    public void despacharAntiguo() {
+        Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad();
+        trasladosDespachados++;
+        gananciaTotal = gananciaTotal + despachado.gananciaNeta();
+        trasladosRedito.eliminar(despachado.handleRedito());
+        //actualizarGananciaPromedio(despachado.gananciaNeta());
+        cantTraslados--;
+    }
 
-        //falta idPrimerAntiguo
+    public void despacharRedituable() {
+        Traslado despachado = trasladosRedito.obtenerMayorPrioridad();
+        trasladosDespachados++;
+        gananciaTotal = gananciaTotal + despachado.gananciaNeta();
+        trasladosTimeStamp.eliminar(despachado.handleTimeStamp());
+        //actualizarGananciaPromedio(despachado.gananciaNeta());
+        cantTraslados--;
+    }
 
-        private void actualizarGananciaPromedio(float ganancia){
-            gananciaPromedioGlobal = (gananciaPromedioGlobal + ganancia) / 2;
-        }
+    public Traslado trasladoMasRedituable() {
+        return trasladosRedito.verMayorPrioridad();
+    }
 
-        public int gananciaPromedio(){
-            return (int) gananciaPromedioGlobal;
-        }
+    public Traslado trasladoMasAntiguo() {
+        return trasladosTimeStamp.verMayorPrioridad();
+    }
 
-        public int cantTraslados() {
-            return trasladosRedito.cantElems();
-        }
+    public int gananciaPromedio() {
+        return gananciaTotal / trasladosDespachados;
+    }
+
+    public int cantTraslados() {
+        return cantTraslados;
+    }
 
 }
