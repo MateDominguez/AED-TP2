@@ -61,7 +61,7 @@ public class Heap<T> {
             if (comp.compare(actual, padre) > 0) {
                 elems.set(padre(i), actual);
                 elems.set(i, padre);
-                // Si rs de tipo Traslado, modifica los handles
+                // Modifica los handles del padre y el hijo con la nueva posicion
                 actualizarHandle(actual, padre(i));
                 actualizarHandle(padre, i);
                 siftup(padre(i));

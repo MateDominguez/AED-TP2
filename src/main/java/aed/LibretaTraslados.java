@@ -11,7 +11,7 @@ public class LibretaTraslados {
     public LibretaTraslados(Traslado[] traslados) {
         ReditoComparator compRedito = new ReditoComparator();
         TimeStampComparator compTimeStamp = new TimeStampComparator();
-        this.trasladosRedito = new Heap<Traslado>(traslados, compRedito);
+        this.trasladosRedito = new Heap<>(traslados, compRedito);
         this.trasladosTimeStamp = new Heap<>(traslados, compTimeStamp);
         this.cantTraslados = traslados.length;
         this.gananciaTotal = 0;
