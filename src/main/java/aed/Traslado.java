@@ -18,11 +18,11 @@ public class Traslado {
         this.timestamp = timestamp;
     }
 
-    public void modificarHandleTimeStamp(int valor) { //O(1)
+    public void modificarHandleTimeStamp(int valor) { //O(1). asignacion
         this.handleTimeStamp = valor;
     }
 
-    public void modificarHandleRedito(int valor) { //O(1)
+    public void modificarHandleRedito(int valor) { //O(1). asignacion
         this.handleRedito = valor;
     }
 
