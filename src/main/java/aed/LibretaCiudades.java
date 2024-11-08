@@ -9,7 +9,7 @@ public class LibretaCiudades {
     private ArrayList<Integer> ciudadesMayorPerdida;
     private ArrayList<Integer> ciudadesMayorGanancia;
 
-    public LibretaCiudades(int cantCiudades) {
+    public LibretaCiudades(int cantCiudades) { //O(c)
         SuperavitComparator comp = new SuperavitComparator();
         ciudadesMayorGanancia = new ArrayList<Integer>();
         ciudadesMayorPerdida = new ArrayList<Integer>();
@@ -22,33 +22,33 @@ public class LibretaCiudades {
 
     }
 
-    public void sumarGanancia(int ciudad, int valor) {
+    public void sumarGanancia(int ciudad, int valor) { //O(log n)
         ciudades[ciudad].modificarGanancia(ciudades[ciudad].ganancia() + valor);
         actualizarCiudadesMayorGanancia(ciudad);
         actualizarSuperavit(ciudad);
     }
 
-    private void actualizarCiudadesMayorGanancia(int ciudad) {
+    private void actualizarCiudadesMayorGanancia(int ciudad) { //O(log n)
         if (ciudadesMayorGanancia.size() == 0) {
-            ciudadesMayorGanancia.add(ciudad);
+            ciudadesMayorGanancia.add(ciudad); //O(log n)
         } else {
             int mayorGananciaActual = ciudades[ciudadesMayorGanancia.get(0)].ganancia();
             if (ciudades[ciudad].ganancia() > mayorGananciaActual) {
-                ciudadesMayorGanancia.clear();
-                ciudadesMayorGanancia.add(ciudad);
+                ciudadesMayorGanancia.clear(); //O(1)
+                ciudadesMayorGanancia.add(ciudad); //O(log n)
             } else if (ciudades[ciudad].ganancia() == mayorGananciaActual) {
-                ciudadesMayorGanancia.add(ciudad);
+                ciudadesMayorGanancia.add(ciudad); //O(log n)
             }
         }
     }
 
-    public void sumarPerdida(int ciudad, int valor) {
+    public void sumarPerdida(int ciudad, int valor) { //O(log n)
         ciudades[ciudad].modificarPerdida(ciudades[ciudad].perdida() + valor);
         actualizarCiudadesMayorPerdida(ciudad);
         actualizarSuperavit(ciudad);
     }
 
-    private void actualizarCiudadesMayorPerdida(int ciudad) {
+    private void actualizarCiudadesMayorPerdida(int ciudad) { //O(log n)
         if (ciudadesMayorPerdida.size() == 0) {
             ciudadesMayorPerdida.add(ciudad);
         } else {
@@ -62,12 +62,12 @@ public class LibretaCiudades {
         }
     }
 
-    private void actualizarSuperavit(int ciudad) {
+    private void actualizarSuperavit(int ciudad) { //O(log n)
         heapSuperavit.actualizar(ciudades[ciudad].handleSuperavit());
     }
 
-    public int ciudadMayorSuperavit() {
-        return heapSuperavit.verMayorPrioridad().id();
+    public int ciudadMayorSuperavit() { //O(1)
+        return heapSuperavit.verMayorPrioridad().id(); //O(1)
     }
 
     public ArrayList<Integer> listaCiudadesMayorPerdida() {

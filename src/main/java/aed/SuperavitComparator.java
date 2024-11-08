@@ -2,7 +2,7 @@ package aed;
 
 import java.util.Comparator;
 
-public class SuperavitComparator implements Comparator<Ciudad> {
+public class SuperavitComparator implements Comparator<Ciudad> { //O(1)
 
     @Override
     public int compare(Ciudad c1, Ciudad c2) {

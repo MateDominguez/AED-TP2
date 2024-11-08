@@ -18,21 +18,21 @@ public class LibretaTraslados {
         this.trasladosDespachados = 0;
     }
 
-    public void agregarTraslado(Traslado traslado) {
+    public void agregarTraslado(Traslado traslado) { //O(log n) porque agregar cuesta O(log n)
         trasladosRedito.agregar(traslado);
         trasladosTimeStamp.agregar(traslado);
         cantTraslados++;
     }
 
-    public void despacharAntiguo() {
-        Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad();
+    public void despacharAntiguo() { //O(log n) porque obtenerMayorPrioridad cuesta O(log n)
+        Traslado despachado = trasladosTimeStamp.obtenerMayorPrioridad(); //O(log n)
         trasladosDespachados++;
         gananciaTotal = gananciaTotal + despachado.gananciaNeta();
-        trasladosRedito.eliminar(despachado.handleRedito());
+        trasladosRedito.eliminar(despachado.handleRedito()); //O(log n)
         cantTraslados--;
     }
 
-    public void despacharRedituable() {
+    public void despacharRedituable() { //O(log n) idem que en despachatAntiguo
         Traslado despachado = trasladosRedito.obtenerMayorPrioridad();
         trasladosDespachados++;
         gananciaTotal = gananciaTotal + despachado.gananciaNeta();
@@ -40,19 +40,19 @@ public class LibretaTraslados {
         cantTraslados--;
     }
 
-    public Traslado trasladoMasRedituable() {
+    public Traslado trasladoMasRedituable() { //O(1) porque verMayorPrioridad cuesta O(1)
         return trasladosRedito.verMayorPrioridad();
     }
 
-    public Traslado trasladoMasAntiguo() {
+    public Traslado trasladoMasAntiguo() { //O(1) porque verMayorPrioridad cuesta O(1)
         return trasladosTimeStamp.verMayorPrioridad();
     }
 
-    public int gananciaPromedio() {
+    public int gananciaPromedio() { //O(1)
         return gananciaTotal / trasladosDespachados;
     }
 
-    public int cantTraslados() {
+    public int cantTraslados() { //O(1)
         return cantTraslados;
     }
 
