@@ -29,7 +29,6 @@ public class LibretaTraslados {
         trasladosDespachados++;
         gananciaTotal = gananciaTotal + despachado.gananciaNeta();
         trasladosRedito.eliminar(despachado.handleRedito());
-        //actualizarGananciaPromedio(despachado.gananciaNeta());
         cantTraslados--;
     }
 
@@ -38,7 +37,6 @@ public class LibretaTraslados {
         trasladosDespachados++;
         gananciaTotal = gananciaTotal + despachado.gananciaNeta();
         trasladosTimeStamp.eliminar(despachado.handleTimeStamp());
-        //actualizarGananciaPromedio(despachado.gananciaNeta());
         cantTraslados--;
     }
 

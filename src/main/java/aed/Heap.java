@@ -11,8 +11,8 @@ public class Heap<T> {
 
     public Heap(T[] elementos, Comparator<T> comp) {
         this.comp = comp;
-        this.elems = heapify(elementos);
         this.cantElems = elementos.length;
+        this.elems = heapify(elementos);
     }
 
     private ArrayList<T> heapify(T[] elementos) {
@@ -65,9 +65,6 @@ public class Heap<T> {
                 actualizarHandle(actual, padre(i));
                 actualizarHandle(padre, i);
                 siftup(padre(i));
-            } else {
-                actualizarHandle(actual, i);
-                actualizarHandle(padre, padre(i));
             }
         }
     }
