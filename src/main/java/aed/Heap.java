@@ -9,19 +9,19 @@ public class Heap<T> {
     private Comparator<T> comp;
     private int cantElems;
 
-    public Heap(T[] elementos, Comparator<T> comp) {
+    public Heap(T[] elementos, Comparator<T> comp) { //O(t)
         this.comp = comp;
         this.elems = heapify(elementos);
         this.cantElems = elementos.length;
     }
 
-    private ArrayList<T> heapify(T[] elementos) {
+    private ArrayList<T> heapify(T[] elementos) { //O(t)
         ArrayList<T> heap = new ArrayList<>();
         for (int i = 0; i < elementos.length; i++) {
             actualizarHandle(elementos[i], i);
             heap.add(elementos[i]);
         }
-        for (int i = ((cantElems / 2) - 1); i >= 0; i--) {
+        for (int i = ((cantElems / 2) - 1); i >= 0; i--) { //O(1) iterno n veces algo que cuesta O(1)
             T actual = heap.get(i);
             T hijoConMayorOrdenPrioridad = heap.get(hijo_izq(i));
             int nuevoIndice = hijo_izq(i);

@@ -2,7 +2,7 @@ package aed;
 
 import java.util.Comparator;
 
-public class ReditoComparator implements Comparator<Traslado> {
+public class ReditoComparator implements Comparator<Traslado> { //O(1)
 
     @Override
     public int compare(Traslado t1, Traslado t2) {
