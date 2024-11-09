@@ -112,12 +112,31 @@ public class Heap<T> {
     //O(log n)
 
     public void eliminar(int i) { 
-        elems.set(i, elems.get(cantElems - 1));
+        T holder = elems.get(i); 
+        T ultimo = elems.get(cantElems - 1);
+        elems.set(i, ultimo);
+        elems.set(cantElems-1,holder);
+        if (holder instanceof Traslado) {
+            Traslado elem = (Traslado) ultimo;
+            if (comp instanceof TimeStampComparator) {
+                elem.modificarHandleTimeStamp(i);
+            } else if (comp instanceof ReditoComparator) {
+                elem.modificarHandleRedito(i);
+            }
+        }    
         cantElems--;
         siftdown(i);
     }// O(log n). La complejidad sale de hacer siftdown.
 
     public void agregar(T elemento) {
+        if (elemento instanceof Traslado) {
+            Traslado traslado = (Traslado) elemento;
+            if (comp instanceof TimeStampComparator) {
+                traslado.modificarHandleTimeStamp(cantElems);
+            } else if (comp instanceof ReditoComparator) {
+                traslado.modificarHandleRedito(cantElems);
+            }
+        }
         if (cantElems == elems.size()) {
             elems.add(elemento);
         } else {

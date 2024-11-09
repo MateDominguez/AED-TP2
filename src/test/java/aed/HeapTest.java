@@ -126,18 +126,21 @@ public class HeapTest {
         Traslado t8 = new Traslado(8,1,4,6000,34);
         Traslado t9 = new Traslado(9,4,5,400,1);
         Traslado t10 = new Traslado(10,5,0,60,52);
-        Traslado t11 = new Traslado(11,4,1,900,66);
 
         heapRedito.agregar(t8);
         heapRedito.agregar(t9);
         heapRedito.agregar(t10);
-        heapRedito.agregar(t11);
         
         heapTimeStamp.agregar(t8);
         heapTimeStamp.agregar(t9);
         heapTimeStamp.agregar(t10);
-        heapTimeStamp.agregar(t11);
         
+        assertEquals(6,heapRedito.cantElems()); 
+        assertEquals(6,heapTimeStamp.cantElems());
+
+        assertEquals(3,heapRedito.verMayorPrioridad().handleTimeStamp());
+        assertEquals(1,heapTimeStamp.verMayorPrioridad().handleRedito());
+
 
     }
     void assertEquals(Traslado esperado, Traslado actual){
