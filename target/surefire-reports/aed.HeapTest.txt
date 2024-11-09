@@ -1,15 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: aed.HeapTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.105 s <<< FAILURE! - in aed.HeapTest
-aed.HeapTest.testAgregar  Time elapsed: 0.059 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: El mayor elemento debería ser 50. ==> expected: <50> but was: <5>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:568)
-	at aed.HeapTest.testAgregar(HeapTest.java:32)
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.12 s <<< FAILURE! - in aed.HeapTest
+aed.HeapTest.TestMixto  Time elapsed: 0.054 s  <<< FAILURE!
+java.lang.AssertionError: Esperaba 2 pero obtuve 4
+	at aed.HeapTest.assertEquals(HeapTest.java:153)
+	at aed.HeapTest.TestMixto(HeapTest.java:123)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)

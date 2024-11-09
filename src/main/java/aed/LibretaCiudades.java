@@ -47,7 +47,7 @@ public class LibretaCiudades {
 
     public void sumarPerdida(int ciudad, int valor) {
         int mayorPerdidaActual = 0;
-        if (!ciudadesMayorPerdida.isEmpty()) {
+        if (ciudadesMayorPerdida.isEmpty()) {
             mayorPerdidaActual = ciudades[ciudadesMayorPerdida.get(0)].perdida();
         }
         ciudades[ciudad].modificarPerdida(ciudades[ciudad].perdida() + valor);

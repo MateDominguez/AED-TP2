@@ -141,4 +141,8 @@ public class Heap<T> {
     public int cantElems() { 
         return cantElems;
     }// O(1)
+
+    public T devolver(int indice){
+        return elems.get(indice);
+    }
 }

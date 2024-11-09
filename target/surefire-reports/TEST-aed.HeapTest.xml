@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.HeapTest" time="0.105" tests="1" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="aed.HeapTest" time="0.12" tests="1" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="AR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Users\juani\OneDrive\Escritorio\Oracle_JDK-23\bin"/>
-    <property name="sun.java.command" value="C:\Users\juani\AppData\Local\Temp\surefire9100811472841677133\surefirebooter-20241106235302633_3.jar C:\Users\juani\AppData\Local\Temp\surefire9100811472841677133 2024-11-06T23-53-02_477-jvmRun1 surefire-20241106235302633_1tmp surefire_0-20241106235302633_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\juani\AppData\Local\Temp\surefire5277988164633570117\surefirebooter-20241109165142908_3.jar C:\Users\juani\AppData\Local\Temp\surefire5277988164633570117 2024-11-09T16-51-42_700-jvmRun1 surefire-20241109165142908_1tmp surefire_0-20241109165142908_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="aed.HeapTest#testAgregar"/>
+    <property name="test" value="aed.HeapTest#TestMixto"/>
     <property name="surefire.test.class.path" value="C:\Users\juani\OneDrive\Escritorio\AED-TP2\target\test-classes;C:\Users\juani\OneDrive\Escritorio\AED-TP2\target\classes;C:\Users\juani\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.2\junit-jupiter-engine-5.9.2.jar;C:\Users\juani\.m2\repository\org\junit\platform\junit-platform-engine\1.9.2\junit-platform-engine-1.9.2.jar;C:\Users\juani\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\juani\.m2\repository\org\junit\platform\junit-platform-commons\1.9.2\junit-platform-commons-1.9.2.jar;C:\Users\juani\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.2\junit-jupiter-api-5.9.2.jar;C:\Users\juani\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\juani"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\juani\AppData\Local\Temp\surefire9100811472841677133\surefirebooter-20241106235302633_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\juani\AppData\Local\Temp\surefire5277988164633570117\surefirebooter-20241109165142908_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="23.0.1+11-39"/>
@@ -60,14 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testAgregar" classname="aed.HeapTest" time="0.059">
-    <failure message="El mayor elemento debería ser 50. ==&gt; expected: &lt;50&gt; but was: &lt;5&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: El mayor elemento debería ser 50. ==> expected: <50> but was: <5>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:568)
-	at aed.HeapTest.testAgregar(HeapTest.java:32)
+  <testcase name="TestMixto" classname="aed.HeapTest" time="0.054">
+    <failure message="Esperaba 2 pero obtuve 4" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: Esperaba 2 pero obtuve 4
+	at aed.HeapTest.assertEquals(HeapTest.java:153)
+	at aed.HeapTest.TestMixto(HeapTest.java:123)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
