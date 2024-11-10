@@ -22,7 +22,7 @@ public class Heap<T> {
             actualizarHandle(elementos[i], i);
             heap.add(elementos[i]);
         }
-        for (int i = ((cantElems / 2) - 1); i >= 0; i--) { //O(1). iterno n veces algo que cuesta O(1)
+        for (int i = ((cantElems / 2) - 1); i >= 0; i--) { //O(1). Itero n veces algo que cuesta O(1)
             T actual = heap.get(i);
             T hijoConMayorOrdenPrioridad = heap.get(hijo_izq(i));
             int nuevoIndice = hijo_izq(i);
