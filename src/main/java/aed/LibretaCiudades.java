@@ -24,7 +24,7 @@ public class LibretaCiudades {
 
     public void sumarGanancia(int ciudad, int valor) { 
         int mayorGananciaActual = 0;
-        if (ciudadesMayorGanancia.isEmpty()) {
+        if (!ciudadesMayorGanancia.isEmpty()) {
             mayorGananciaActual = ciudades[ciudadesMayorGanancia.get(0)].ganancia(); 
         }
         ciudades[ciudad].modificarGanancia(ciudades[ciudad].ganancia() + valor); //asignacion O(1)
@@ -47,7 +47,7 @@ public class LibretaCiudades {
 
     public void sumarPerdida(int ciudad, int valor) {
         int mayorPerdidaActual = 0;
-        if (ciudadesMayorPerdida.isEmpty()) {
+        if (!ciudadesMayorPerdida.isEmpty()) {
             mayorPerdidaActual = ciudades[ciudadesMayorPerdida.get(0)].perdida();
         }
         ciudades[ciudad].modificarPerdida(ciudades[ciudad].perdida() + valor);
