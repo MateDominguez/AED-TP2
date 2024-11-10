@@ -11,6 +11,7 @@ public class Heap<T> {
 
     public Heap(T[] elementos, Comparator<T> comp) { 
         this.comp = comp;
+        this.elems = new ArrayList<T>();
         this.cantElems = elementos.length;
         this.elems = heapify(elementos);
     }//usamos el metodo Heapify. El cual tiene complejidad O(|T|). Despues solo asignamos cosas.
@@ -112,6 +113,12 @@ public class Heap<T> {
     //O(log n)
 
     public void eliminar(int i) { 
+        if (cantElems == 0) {
+            return;
+        }
+        else if ( i>= cantElems) {
+            return;
+        }
         T holder = elems.get(i); 
         T ultimo = elems.get(cantElems - 1);
         elems.set(i, ultimo);
@@ -147,10 +154,12 @@ public class Heap<T> {
     }// O(log n). La complejidad sale de hacer siftup.
 
     public T verMayorPrioridad() { 
+        if (cantElems == 0) return null;
         return elems.get(0);
     }// O(1)
 
     public T obtenerMayorPrioridad() { 
+        if (cantElems == 0 ) return null;
         T res = elems.get(0);
         eliminar(0);
         return res;
@@ -162,6 +171,9 @@ public class Heap<T> {
     }// O(1)
 
     public T devolver(int indice){
+        if (indice < 0 || indice >= cantElems) {
+            return null;
+        }
         return elems.get(indice);
     }
 }
