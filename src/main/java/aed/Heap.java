@@ -113,10 +113,7 @@ public class Heap<T> {
     //O(log n)
 
     public void eliminar(int i) { 
-        if (cantElems == 0) {
-            return;
-        }
-        else if ( i>= cantElems) {
+        if (cantElems == 0 || i >= cantElems || cantElems == 0) {
             return;
         }
         T holder = elems.get(i); 
