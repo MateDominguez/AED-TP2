@@ -17,6 +17,9 @@ public class LibretaCiudades {
         for (int i = 0; i < cantCiudades; i++) {
             Ciudad ciudad = new Ciudad(i);
             ciudades[i] = ciudad;
+           // Integer c = (Integer) i;
+            ciudadesMayorGanancia.add(i);
+            ciudadesMayorPerdida.add(i);
         }
         this.heapSuperavit = new Heap<>(ciudades, comp);
 
