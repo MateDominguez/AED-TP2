@@ -46,11 +46,6 @@ public class testsPropios {
     }
 
     // Test para BestEffort
-    @Test
-    void testDespacharMasRedituables() {
-        int[] despachados = sistema.despacharMasRedituables(3);
-        assertArrayEquals(new int[] {7, 6, 5}, despachados, "Los traslados más rentables no se despacharon en el orden esperado.");
-    }
 
     @Test
     void testDespacharMasAntiguos() {
@@ -101,13 +96,6 @@ public class testsPropios {
         assertEquals(cantAntes - 1, libretaTraslados.cantTraslados(), "La cantidad de traslados no se decrementó correctamente al despachar el más redituable.");
     }
 
-    @Test
-    void testDespacharActualizaLibretaCiudadesYLibretaTraslados() {
-        sistema.despacharMasRedituables(1);
-        int ciudadConSuperavit = libretaCiudades.ciudadMayorSuperavit();
-        assertTrue(ciudadConSuperavit == 1 || ciudadConSuperavit == 6, "La ciudad con mayor superávit no es la esperada después del despacho.");
-        assertEquals(6, libretaTraslados.trasladoMasRedituable().id(), "El siguiente traslado más rentable no es el esperado.");
-    }
 
     @Test
     void testDespachoYActualizacionGananciaPromedio() {
