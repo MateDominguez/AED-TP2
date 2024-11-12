@@ -104,5 +104,145 @@ public class testsPropios {
         sistema.despacharMasRedituables(1);
         assertEquals(1333, sistema.gananciaPromedioPorTraslado(), "La ganancia promedio no se actualizó correctamente después del despacho.");
     }
-}
+    @Test
+    void testRegistrarTraslados() {
+        Traslado[] nuevosTraslados = new Traslado[]{
+            new Traslado(6, 1, 3, 250, 6),
+            new Traslado(7, 2, 0, 150, 7)
+        };
+        sistema.registrarTraslados(nuevosTraslados);
+        assertEquals(7, libretaTraslados.cantTraslados(), "La cantidad de traslados debería ser 7 después de registrar nuevos traslados.");
+    }
+    @Test
+    void testDespacharAmbosTraslados(){
+        Traslado[] traslados = {
+            new Traslado(1, 0, 1, 300 ,10),
+            new Traslado(2, 1, 0, 300, 11)
+        };
+        BestEffort sistema = new BestEffort(2, traslados);
+        sistema.despacharMasRedituables(2);
+        ArrayList<Integer> ciudadesMayorGanancia = sistema.ciudadesConMayorGanancia();
+        assertTrue(ciudadesMayorGanancia.contains(0) && ciudadesMayorGanancia.contains(1),
+            "Error: Las ciudades con mayor ganancia deberían ser [0, 1]");
+            ArrayList<Integer> ciudadesMayorPerdida = sistema.ciudadesConMayorPerdida();
+            assertTrue(ciudadesMayorPerdida.contains(0) && ciudadesMayorPerdida.contains(1),
+                "Error: Las ciudades con mayor pérdida deberían ser [0, 1]");
+    
+            // Verificar ciudad con mayor superávit
+            int ciudadMayorSuperavit = sistema.ciudadConMayorSuperavit();
+            assertEquals(0, ciudadMayorSuperavit, "Error: se espera ciudad 0 pues se desempata por timestamp");
+        }
+    @Test
+    public void testDespacharMasRedituables() {
+        // Caso 2: Usar la función despacharMasRedituables y verificar qué traslado se despacha
+        Traslado[] traslados = {
+            new Traslado(1, 0, 1, 300, 10),
+            new Traslado(2, 1, 0, 300, 11)
+        };
+        BestEffort sistema = new BestEffort(2, traslados);
+
+        // Despachar el traslado más redituable
+        int[] despachados = sistema.despacharMasRedituables(1);
+
+        // Verificar que se despachó el traslado con id 2, que tiene mayor timestamp y misma ganancia
+        assertEquals(1, despachados[0], "Error: Se esperaba que el traslado con id 1 fuera el primero en ser despachado");
+    }
+    // Caso de prueba para verificar que todas las ciudades aparecen en mayor ganancia y pérdida sin despachos
+    @Test
+    public void testCiudadesSinDespachos() {
+            // Preparar datos de traslados
+            Traslado[] traslados = {
+                new Traslado(1, 0, 1, 500, 1),
+                new Traslado(2, 2, 3, 300, 2),
+                new Traslado(3, 1, 2, 400, 3),
+                new Traslado(4, 3, 0, 200, 4)
+            };
+    
+            BestEffort sistema = new BestEffort(4, traslados);
+    
+            // Verificar que sin despachos todas las ciudades se devuelven en las listas de ganancia y pérdida
+            assert sistema.ciudadConMayorSuperavit() == 0 : "Error: Debió devolver 0 para superávit sin despachos";
+            
+            ArrayList<Integer> ciudadesGanancia = sistema.ciudadesConMayorGanancia();
+            ArrayList<Integer> ciudadesPerdida = sistema.ciudadesConMayorPerdida();
+            
+            assert ciudadesGanancia.size() == 4 : "Error: La lista de mayor ganancia debió contener todas las ciudades sin despachos";
+            assert ciudadesPerdida.size() == 4 : "Error: La lista de mayor pérdida debió contener todas las ciudades sin despachos";
+            
+            for (int i = 0; i < 4; i++) {
+                assert ciudadesGanancia.contains(i) : "Error: Ciudad " + i + " no está en la lista de mayor ganancia";
+                assert ciudadesPerdida.contains(i) : "Error: Ciudad " + i + " no está en la lista de mayor pérdida";
+            }
+    
+            System.out.println("testCiudadesSinDespachos pasó exitosamente.");
+        }
+    
+        // Caso de prueba con despachos para verificar valores de superávit, ganancia y pérdida
+    @Test
+    public void testCiudadesDespachando() {
+            // Preparar datos de traslados
+            Traslado[] traslados = {
+                new Traslado(1, 0, 1, 500, 1),
+                new Traslado(2, 2, 3, 300, 2),
+                new Traslado(3, 1, 2, 400, 3),
+                new Traslado(4, 3, 0, 200, 4)
+            };
+    
+            BestEffort sistema = new BestEffort(4, traslados);
+    
+            // Realizar despachos y verificar resultados
+            sistema.despacharMasRedituables(2);
+    
+            // Verificar superávit, ganancia y pérdida después de algunos despachos
+            assert sistema.ciudadConMayorSuperavit() == 0 : "Error: Ciudad con mayor superávit incorrecta";
+            assert sistema.ciudadesConMayorGanancia().contains(0) : "Error: La ciudad con mayor ganancia no es correcta";
+            assert sistema.ciudadesConMayorPerdida().contains(1) : "Error: La ciudad con mayor pérdida no es correcta";
+    
+            System.out.println("testCiudadesDespachando pasó exitosamente.");
+        }
+            // Caso 1: Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
+    @Test
+    public  void testAgregarYDespacharTraslados() {
+                Traslado[] traslados = {
+                    new Traslado(1, 0, 1, 300, 1),
+                    new Traslado(2, 1, 2, 500, 2),
+                    new Traslado(3, 2, 0, 100, 3)
+                };
+                LibretaTraslados libreta = new LibretaTraslados(traslados);
+        
+                // Verifica que el traslado más rentable es el de ID 2
+                Traslado trasladoMasRedituable = libreta.trasladoMasRedituable();
+                assert trasladoMasRedituable.id() == 2 : "Error: El traslado más rentable debería ser el de ID 2";
+        
+                // Despachar el traslado más rentable y verificar que el siguiente sea el de ID 1
+                libreta.despacharRedituable();
+                trasladoMasRedituable = libreta.trasladoMasRedituable();
+                assert trasladoMasRedituable.id() == 1 : "Error: Después de despachar, el traslado más rentable debería ser el de ID 1";
+        
+                System.out.println("testAgregarYDespacharTraslados pasó exitosamente.");
+            }
+        
+            // Caso 4: Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
+    @Test
+    public  void testCiudadMayorSuperavit() {
+                LibretaCiudades libreta = new LibretaCiudades(3);
+        
+                // Modificar superávit de las ciudades
+                libreta.sumarGanancia(0, 300);
+                libreta.sumarGanancia(1, 100);
+                libreta.sumarPerdida(0, 50);  // superávit de ciudad 0 = 250
+                libreta.sumarPerdida(2, 200); // superávit de ciudad 2 = -200
+        
+                int ciudadMayorSuperavit = libreta.ciudadMayorSuperavit();
+                assert ciudadMayorSuperavit == 0 : "Error: La ciudad con mayor superávit debería ser la ciudad 0";
+        
+                System.out.println("testCiudadMayorSuperavit pasó exitosamente.");
+            }
+        }
+        
+        
+    
+    
+
+
 
