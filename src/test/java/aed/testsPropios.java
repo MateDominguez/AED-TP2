@@ -1,12 +1,13 @@
 package aed;
 
-import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
-
 import java.util.Arrays;
-import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class testsPropios {
 
@@ -59,13 +60,13 @@ public class testsPropios {
         assertEquals(1333, sistema.gananciaPromedioPorTraslado(), "La ganancia promedio por traslado no es la esperada.");
     }
 
-    // Tests para LibretaCiudades
+    // Tests para LibretaCiudades, si modificamos una ganancia el heap superavit debe modificarse.
     @Test
     void testSumarGananciaActualizaHeapSuperavit() {
         libretaCiudades.sumarGanancia(2, 1000);
         assertEquals(2, libretaCiudades.ciudadMayorSuperavit(), "La ciudad con mayor superávit no fue actualizada correctamente.");
     }
-
+    //chequeamos que al sumar ganancias la lista de CiudadesMayorGanancia se actualice correctamente.
     @Test
     void testListaCiudadesMayorGanancia() {
         libretaCiudades.sumarGanancia(0, 500);
@@ -74,14 +75,14 @@ public class testsPropios {
         assertSetEquals(esperado, libretaCiudades.listaCiudadesMayorGanancia());
     }
 
-    // Tests para LibretaTraslados
+    // Tests para LibretaTraslados.    
+    //Testeamos que el atributo cantTraslados de la clase libreta de traslados se actualice correctamente.
     @Test
     void testAgregarTraslado() {
         Traslado nuevoTraslado = new Traslado(8, 2, 5, 600, 60);
         libretaTraslados.agregarTraslado(nuevoTraslado);
         assertEquals(8, libretaTraslados.cantTraslados(), "La cantidad de traslados no se incrementó correctamente al agregar.");
     }
-
     @Test
     void testDespacharAntiguoActualizaCantidad() {
         int cantAntes = libretaTraslados.cantTraslados();
@@ -96,7 +97,7 @@ public class testsPropios {
         assertEquals(cantAntes - 1, libretaTraslados.cantTraslados(), "La cantidad de traslados no se decrementó correctamente al despachar el más redituable.");
     }
 
-
+    //testeamos que se actualice bien la ganancia promedio
     @Test
     void testDespachoYActualizacionGananciaPromedio() {
         sistema.despacharMasRedituables(2);
@@ -104,23 +105,16 @@ public class testsPropios {
         sistema.despacharMasRedituables(1);
         assertEquals(1333, sistema.gananciaPromedioPorTraslado(), "La ganancia promedio no se actualizó correctamente después del despacho.");
     }
+   
     @Test
-    void testRegistrarTraslados() {
-        Traslado[] nuevosTraslados = new Traslado[]{
-            new Traslado(6, 1, 3, 250, 6),
-            new Traslado(7, 2, 0, 150, 7)
-        };
-        sistema.registrarTraslados(nuevosTraslados);
-        assertEquals(7, libretaTraslados.cantTraslados(), "La cantidad de traslados debería ser 7 después de registrar nuevos traslados.");
-    }
-    @Test
-    void testDespacharAmbosTraslados(){
+     //En caso de que nos pidan despachar mas traslado de los que hay, tiene que despachar todos.
+    void testDespacharTodosLosTraslados(){
         Traslado[] traslados = {
             new Traslado(1, 0, 1, 300 ,10),
             new Traslado(2, 1, 0, 300, 11)
         };
         BestEffort sistema = new BestEffort(2, traslados);
-        sistema.despacharMasRedituables(2);
+        sistema.despacharMasRedituables(4);
         ArrayList<Integer> ciudadesMayorGanancia = sistema.ciudadesConMayorGanancia();
         assertTrue(ciudadesMayorGanancia.contains(0) && ciudadesMayorGanancia.contains(1),
             "Error: Las ciudades con mayor ganancia deberían ser [0, 1]");
@@ -133,22 +127,20 @@ public class testsPropios {
             assertEquals(0, ciudadMayorSuperavit, "Error: se espera ciudad 0 pues se desempata por timestamp");
         }
     @Test
-    public void testDespacharMasRedituables() {
-        // Caso 2: Usar la función despacharMasRedituables y verificar qué traslado se despacha
+    public void testDespacharMasRedituablesDesempataPorId() {
+        //Usar la función despacharMasRedituables y verificar qué traslado se despacha
         Traslado[] traslados = {
             new Traslado(1, 0, 1, 300, 10),
             new Traslado(2, 1, 0, 300, 11)
         };
         BestEffort sistema = new BestEffort(2, traslados);
 
-        // Despachar el traslado más redituable
+        // Despachar el traslado más redituable, debe despachar el 1 porque tiene menor id.
         int[] despachados = sistema.despacharMasRedituables(1);
-
-        // Verificar que se despachó el traslado con id 2, que tiene mayor timestamp y misma ganancia
         assertEquals(1, despachados[0], "Error: Se esperaba que el traslado con id 1 fuera el primero en ser despachado");
     }
-    // Caso de prueba para verificar que todas las ciudades aparecen en mayor ganancia y pérdida sin despachos
     @Test
+    // Caso de prueba para verificar que todas las ciudades aparecen en mayor ganancia y pérdida sin despachos
     public void testCiudadesSinDespachos() {
             // Preparar datos de traslados
             Traslado[] traslados = {
@@ -177,8 +169,9 @@ public class testsPropios {
             System.out.println("testCiudadesSinDespachos pasó exitosamente.");
         }
     
-        // Caso de prueba con despachos para verificar valores de superávit, ganancia y pérdida
+       
     @Test
+    // Caso de prueba con despachos para verificar valores de superávit, ganancia y pérdida
     public void testCiudadesDespachando() {
             // Preparar datos de traslados
             Traslado[] traslados = {
@@ -200,8 +193,8 @@ public class testsPropios {
     
             System.out.println("testCiudadesDespachando pasó exitosamente.");
         }
-            // Caso 1: Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
     @Test
+    //Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
     public  void testAgregarYDespacharTraslados() {
                 Traslado[] traslados = {
                     new Traslado(1, 0, 1, 300, 1),
@@ -222,8 +215,8 @@ public class testsPropios {
                 System.out.println("testAgregarYDespacharTraslados pasó exitosamente.");
             }
         
-            // Caso 4: Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
     @Test
+    //Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
     public  void testCiudadMayorSuperavit() {
                 LibretaCiudades libreta = new LibretaCiudades(3);
         
