@@ -76,19 +76,9 @@ public class testsPropios {
         assertSetEquals(esperado, libretaCiudades.listaCiudadesMayorGanancia());
     }
 
-<<<<<<< HEAD
     // Tests para LibretaTraslados
 
-=======
-    // Tests para LibretaTraslados.    
-    //Testeamos que el atributo cantTraslados de la clase libreta de traslados se actualice correctamente.
-    @Test
-    void testAgregarTraslado() {
-        Traslado nuevoTraslado = new Traslado(8, 2, 5, 600, 60);
-        libretaTraslados.agregarTraslado(nuevoTraslado);
-        assertEquals(8, libretaTraslados.cantTraslados(), "La cantidad de traslados no se incrementó correctamente al agregar.");
-    }
->>>>>>> 402ed4ba70739e011c6b5a0f7f8e962b849277c2
+
     @Test
     void testDespacharAntiguoActualizaCantidad() {
         int cantAntes = libretaTraslados.cantTraslados();
@@ -134,13 +124,8 @@ public class testsPropios {
             assertEquals(0, ciudadMayorSuperavit, "Error: se espera ciudad 0 pues se desempata por timestamp");
         }
     @Test
-<<<<<<< HEAD
     public void testDespacharMasRedituables() {
         // Caso : Usar la función despacharMasRedituables y verificar qué traslado se despacha
-=======
-    public void testDespacharMasRedituablesDesempataPorId() {
-        //Usar la función despacharMasRedituables y verificar qué traslado se despacha
->>>>>>> 402ed4ba70739e011c6b5a0f7f8e962b849277c2
         Traslado[] traslados = {
             new Traslado(1, 0, 1, 300, 10),
             new Traslado(2, 1, 0, 300, 11)
@@ -205,12 +190,8 @@ public class testsPropios {
     
             System.out.println("testCiudadesDespachando pasó exitosamente.");
         }
-<<<<<<< HEAD
-            // Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
-=======
->>>>>>> 402ed4ba70739e011c6b5a0f7f8e962b849277c2
+    // Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
     @Test
-    //Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
     public  void testAgregarYDespacharTraslados() {
                 Traslado[] traslados = {
                     new Traslado(1, 0, 1, 300, 1),
@@ -231,12 +212,8 @@ public class testsPropios {
                 System.out.println("testAgregarYDespacharTraslados pasó exitosamente.");
             }
         
-<<<<<<< HEAD
-            // Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
-=======
->>>>>>> 402ed4ba70739e011c6b5a0f7f8e962b849277c2
+    // Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
     @Test
-    //Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
     public  void testCiudadMayorSuperavit() {
                 LibretaCiudades libreta = new LibretaCiudades(3);
         
