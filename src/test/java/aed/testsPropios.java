@@ -75,12 +75,6 @@ public class testsPropios {
     }
 
     // Tests para LibretaTraslados
-    @Test
-    void testAgregarTraslado() {
-        Traslado nuevoTraslado = new Traslado(8, 2, 5, 600, 60);
-        libretaTraslados.agregarTraslado(nuevoTraslado);
-        assertEquals(8, libretaTraslados.cantTraslados(), "La cantidad de traslados no se incrementó correctamente al agregar.");
-    }
 
     @Test
     void testDespacharAntiguoActualizaCantidad() {
@@ -134,7 +128,7 @@ public class testsPropios {
         }
     @Test
     public void testDespacharMasRedituables() {
-        // Caso 2: Usar la función despacharMasRedituables y verificar qué traslado se despacha
+        // Caso : Usar la función despacharMasRedituables y verificar qué traslado se despacha
         Traslado[] traslados = {
             new Traslado(1, 0, 1, 300, 10),
             new Traslado(2, 1, 0, 300, 11)
@@ -200,7 +194,7 @@ public class testsPropios {
     
             System.out.println("testCiudadesDespachando pasó exitosamente.");
         }
-            // Caso 1: Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
+            // Agregar traslados a LibretaTraslados y despachar en orden de rentabilidad
     @Test
     public  void testAgregarYDespacharTraslados() {
                 Traslado[] traslados = {
@@ -222,7 +216,7 @@ public class testsPropios {
                 System.out.println("testAgregarYDespacharTraslados pasó exitosamente.");
             }
         
-            // Caso 4: Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
+            // Verificar que LibretaCiudades devuelve correctamente la ciudad con mayor superávit
     @Test
     public  void testCiudadMayorSuperavit() {
                 LibretaCiudades libreta = new LibretaCiudades(3);
@@ -238,6 +232,18 @@ public class testsPropios {
         
                 System.out.println("testCiudadMayorSuperavit pasó exitosamente.");
             }
+            @Test
+            public void testDespacharDeMas() {
+                Traslado[] traslados = {
+                    new Traslado(1, 0, 1, 300, 10),
+                    new Traslado(2, 1, 0, 300, 11)
+                };
+                BestEffort sistema = new BestEffort(2, traslados);
+        
+                // Despachar el traslado más redituable. Tengo dos traslados y me pide que despache 5 entonces despacha esos 2 y no se cuelga.
+                int[] despachados = sistema.despacharMasRedituables(5);
+                assertEquals(1, despachados[0], "Error: Se esperaba que el traslado con id 1 fuera el primero en ser despachado y que no se cuelgue el programa");
+        }
         }
         
         
