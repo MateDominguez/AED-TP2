@@ -49,9 +49,10 @@ public class testsPropios {
     // Test para BestEffort
 
     @Test
-    void testDespacharMasAntiguos() {
-        int[] despachados = sistema.despacharMasAntiguos(3);
-        assertArrayEquals(new int[] {1, 4, 2}, despachados, "Los traslados más antiguos no se despacharon en el orden esperado.");
+    //testeamos el caso de que nos pidan despachar mas despacho de los que tenemos.
+    void testDespacharTodosPorMasAntiguos() {
+        int[] despachados = sistema.despacharMasAntiguos(10);
+        assertArrayEquals(new int[] {1, 4, 2, 5, 6, 7, 3}, despachados, "Los traslados más antiguos no se despacharon en el orden esperado.");
     }
 
     @Test
@@ -107,14 +108,15 @@ public class testsPropios {
     }
    
     @Test
-     //En caso de que nos pidan despachar mas traslado de los que hay, tiene que despachar todos.
-    void testDespacharTodosLosTraslados(){
+    //al tener la misma ganancia neta y tener a las mismas ciudades (la 0 y la 1) 
+    //nos parecio un caso interesante para ver si CiudadesConMayorPredida/Ganancia al igual que superavit se actualizaba bien.
+    void testDespacharTrasladosMismaGananciaNeta(){
         Traslado[] traslados = {
             new Traslado(1, 0, 1, 300 ,10),
             new Traslado(2, 1, 0, 300, 11)
         };
         BestEffort sistema = new BestEffort(2, traslados);
-        sistema.despacharMasRedituables(4);
+        sistema.despacharMasRedituables(2);
         ArrayList<Integer> ciudadesMayorGanancia = sistema.ciudadesConMayorGanancia();
         assertTrue(ciudadesMayorGanancia.contains(0) && ciudadesMayorGanancia.contains(1),
             "Error: Las ciudades con mayor ganancia deberían ser [0, 1]");
