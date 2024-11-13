@@ -9,7 +9,7 @@ public class LibretaCiudades {
     private ArrayList<Integer> ciudadesMayorPerdida;
     private ArrayList<Integer> ciudadesMayorGanancia;
 
-    public LibretaCiudades(int cantCiudades) { 
+    public LibretaCiudades(int cantCiudades) {
         SuperavitComparator comp = new SuperavitComparator();
         ciudadesMayorGanancia = new ArrayList<>();
         ciudadesMayorPerdida = new ArrayList<>();
@@ -17,7 +17,6 @@ public class LibretaCiudades {
         for (int i = 0; i < cantCiudades; i++) {
             Ciudad ciudad = new Ciudad(i);
             ciudades[i] = ciudad;
-           // Integer c = (Integer) i;
             ciudadesMayorGanancia.add(i);
             ciudadesMayorPerdida.add(i);
         }
@@ -25,17 +24,17 @@ public class LibretaCiudades {
 
     }//O(|c|). Agregamos una por una las ciudades a la lista "ciudades". 
 
-    public void sumarGanancia(int ciudad, int valor) { 
+    public void sumarGanancia(int ciudad, int valor) {
         int mayorGananciaActual = 0;
         if (!ciudadesMayorGanancia.isEmpty()) {
-            mayorGananciaActual = ciudades[ciudadesMayorGanancia.get(0)].ganancia(); 
+            mayorGananciaActual = ciudades[ciudadesMayorGanancia.get(0)].ganancia();
         }
         ciudades[ciudad].modificarGanancia(ciudades[ciudad].ganancia() + valor); //asignacion O(1)
         actualizarCiudadesMayorGanancia(ciudad, mayorGananciaActual); //O(1)
         actualizarSuperavit(ciudad);
     }//O(log |c|). Por actualizar el heapSuperavit.
 
-    private void actualizarCiudadesMayorGanancia(int ciudad, int mayorGanancia) { 
+    private void actualizarCiudadesMayorGanancia(int ciudad, int mayorGanancia) {
         if (ciudadesMayorGanancia.isEmpty()) {
             ciudadesMayorGanancia.add(ciudad); //O(1)
         } else {
@@ -71,13 +70,13 @@ public class LibretaCiudades {
         }
     }//O(1). Solo hacemos asignaciones, comparaciones y en caso de ser necesario agregamos un elemento a un array.
 
-    private void actualizarSuperavit(int ciudad) { 
-        heapSuperavit.actualizar(ciudades[ciudad].handleSuperavit()); 
+    private void actualizarSuperavit(int ciudad) {
+        heapSuperavit.actualizar(ciudades[ciudad].handleSuperavit());
     }//O(log |c|). HeapSuperavit debe ser actualizado cada vez que hay un despacho. Para eso usamos los metodos siftup y siftdown de la clase Heap.
     // ambos metodos son de orden O(log n). Por ende, actualizar el superavit tambien lo sera, ya que aparte de eso solo usamos asignaciones.
 
-    public int ciudadMayorSuperavit() { 
-        return heapSuperavit.verMayorPrioridad().id(); 
+    public int ciudadMayorSuperavit() {
+        return heapSuperavit.verMayorPrioridad().id();
     }//O(1). Solo accedemos a un atributo de la clase Ciudades.
 
     public ArrayList<Integer> listaCiudadesMayorPerdida() {
@@ -85,7 +84,7 @@ public class LibretaCiudades {
     }//O(1)
 
     public ArrayList<Integer> listaCiudadesMayorGanancia() {
-        return ciudadesMayorGanancia; 
+        return ciudadesMayorGanancia;
     }//O(1)
 
 }

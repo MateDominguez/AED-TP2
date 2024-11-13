@@ -9,20 +9,20 @@ public class Heap<T> {
     private Comparator<T> comp;
     private int cantElems;
 
-    public Heap(T[] elementos, Comparator<T> comp) { 
+    public Heap(T[] elementos, Comparator<T> comp) {
         this.comp = comp;
         this.elems = new ArrayList<T>();
         this.cantElems = elementos.length;
         this.elems = heapify(elementos);
     }//usamos el metodo Heapify. El cual tiene complejidad O(|T|). Despues solo asignamos cosas.
 
-    private ArrayList<T> heapify(T[] elementos) { 
+    private ArrayList<T> heapify(T[] elementos) {
         ArrayList<T> heap = new ArrayList<>();
         for (int i = 0; i < elementos.length; i++) { //O(|elementos|)
             actualizarHandle(elementos[i], i);
             heap.add(elementos[i]);
         }
-        for (int i = ((cantElems / 2) - 1); i >= 0; i--) { //O(1). Itero n veces algo que cuesta O(1)
+        for (int i = ((cantElems / 2) - 1); i >= 0; i--) { //O(|elementos|). Itero |elementos| veces algo que cuesta O(1)
             T actual = heap.get(i);
             T hijoConMayorOrdenPrioridad = heap.get(hijo_izq(i));
             int nuevoIndice = hijo_izq(i);
@@ -54,11 +54,11 @@ public class Heap<T> {
         return ((i - 1) / 2);
     }//tanto hijo_izq, hijo_der como padre tienen complejidad O(1)
 
-    private void siftup(int i) { 
+    private void siftup(int i) {
         if (i > 0) {
             T actual = elems.get(i);
             T padre = elems.get(padre(i));
-            // Me fijo si el padre es mas grande/chico, si es asi los cambia de lugar
+            // Me fijo si el padre es mas grande, si es asi los cambia de lugar
             if (comp.compare(actual, padre) > 0) {
                 elems.set(padre(i), actual);
                 elems.set(i, padre);
@@ -70,7 +70,7 @@ public class Heap<T> {
         }
     } //O(log n)
 
-    private void siftdown(int indiceActual) { 
+    private void siftdown(int indiceActual) {
         if (indiceActual <= ((cantElems / 2) - 1)) {
             T actual = elems.get(indiceActual);
             T hijoConMayorOrdenPrioridad = elems.get(hijo_izq(indiceActual));
@@ -80,7 +80,7 @@ public class Heap<T> {
                 hijoConMayorOrdenPrioridad = elems.get(hijo_der(indiceActual));
                 nuevoIndice = hijo_der(indiceActual);
             }
-            // Me fijo si el padre es mas grande/chico, si es asi los cambia de lugar
+            // Me fijo si el padre es mas grande, si es asi lo cambia de lugar con el hijo mas grande
             if (comp.compare(hijoConMayorOrdenPrioridad, actual) > 0) {
                 elems.set(indiceActual, hijoConMayorOrdenPrioridad);
                 elems.set(nuevoIndice, actual);
@@ -91,7 +91,8 @@ public class Heap<T> {
         }
     }// O(log n)
 
-    private void actualizarHandle(T elemento, int indice) { 
+    private void actualizarHandle(T elemento, int indice) {
+        // Dependiendo del tipo del heap, actualizo el handle correspondiente
         if (elemento instanceof Traslado) {
             if (comp instanceof TimeStampComparator) {
                 Traslado elem = (Traslado) elemento;
@@ -106,20 +107,20 @@ public class Heap<T> {
         }
     }// O(1)
 
-    public void actualizar(int i) { 
+    public void actualizar(int i) {
         siftup(i);
         siftdown(i);
     } //tanto el metodo siftup como el metodo siftdown son de orden O(log n).
     //O(log n)
 
-    public void eliminar(int i) { 
-        if (cantElems == 0 || i >= cantElems || cantElems == 0) {
+    public void eliminar(int i) {
+        if (cantElems == 0 || i >= cantElems) {
             return;
         }
-        T holder = elems.get(i); 
+        T holder = elems.get(i);
         T ultimo = elems.get(cantElems - 1);
         elems.set(i, ultimo);
-        elems.set(cantElems-1,holder);
+        elems.set(cantElems - 1, holder);
         if (holder instanceof Traslado) {
             Traslado elem = (Traslado) ultimo;
             if (comp instanceof TimeStampComparator) {
@@ -127,7 +128,7 @@ public class Heap<T> {
             } else if (comp instanceof ReditoComparator) {
                 elem.modificarHandleRedito(i);
             }
-        }    
+        }
         cantElems--;
         siftdown(i);
     }// O(log n). La complejidad sale de hacer siftdown.
@@ -150,24 +151,28 @@ public class Heap<T> {
         cantElems++;
     }// O(log n). La complejidad sale de hacer siftup.
 
-    public T verMayorPrioridad() { 
-        if (cantElems == 0) return null;
+    public T verMayorPrioridad() {
+        if (cantElems == 0) {
+            return null;
+        }
         return elems.get(0);
     }// O(1)
 
-    public T obtenerMayorPrioridad() { 
-        if (cantElems == 0 ) return null;
+    public T obtenerMayorPrioridad() {
+        if (cantElems == 0) {
+            return null;
+        }
         T res = elems.get(0);
         eliminar(0);
         return res;
     }// O(log n). Este metodo elimina el de mayor prioridad ademas de que lo returnea. 
     //eliminar cuesta O(log n), por eso la complejidad
 
-    public int cantElems() { 
+    public int cantElems() {
         return cantElems;
     }// O(1)
 
-    public T devolver(int indice){
+    public T devolver(int indice) {
         if (indice < 0 || indice >= cantElems) {
             return null;
         }
